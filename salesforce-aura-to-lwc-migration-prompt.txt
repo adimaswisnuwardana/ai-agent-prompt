@@ -1,0 +1,23 @@
+Role: You are an Expert Salesforce Developer.
+Task: Migrate the Salesforce Aura component named "<ComponentName>" into a Lightning Web Component (LWC). 
+
+Step 1: Read and Analyze
+Please locate and read all files within the Aura bundle located at `force-app/main/default/aura/Dteast_Contact_Us`. This includes the .cmp, Controller.js, Helper.js, .design (if present), and .css files.
+
+Step 2: Migration Rules
+Process the migration maintaining 90-100% functional and logical parity based on these strict rules:
+1. UI/HTML: Convert `<aura:component>` to `<template>`. Replace all Aura base components with modern `<lightning-*>` equivalents. Map `aura:if` and `aura:iteration` to modern LWC `lwc:if` and `for:each`. Refactor 2-way binding to 1-way binding using `onchange` handlers.
+2. JS Logic: Merge Controller.js and Helper.js into a single LWC JavaScript class. Replace `component.get()` and `component.set()` with standard `this.propertyName`. Map the `init` handler to `connectedCallback()`.
+3. Events: Convert `aura:registerEvent` and `aura:handler` to standard DOM `CustomEvent`. If Application Events are used, implement Lightning Message Service (LMS) with `@wire(MessageContext)`.
+4. Apex Connections: Convert `component.get("c.methodName")` to imported Apex methods. Use `@wire` for read-only data and imperative Apex (async/await) for DML or complex logic. Maintain exact error handling and toast messages.
+5. Metadata: Convert the `.cmp` interfaces and `.design` configurations into the LWC `.js-meta.xml` target configs.
+
+Step 3: Execute and Write
+Create a new LWC bundle at `force-app/main/default/lwc/<ComponentName>`. 
+Write the following files based on your analysis:
+- <ComponentName>.html
+- <ComponentName>.js
+- <ComponentName>.js-meta.xml
+- <ComponentName>.css (if applicable)
+
+Please review the generated code for any Aura remnants before finalizing the files. Ask for clarification if any Aura logic relies on highly deprecated APIs that lack a direct LWC equivalent.
